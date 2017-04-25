@@ -24,12 +24,6 @@ namespace BangazonOrientation.API.Controllers
         [HttpGet,Route("{lineitemId}")]
         public HttpResponseMessage GetLineItemById(int cartId)
         {
-
-            //if (string.IsNullOrWhiteSpace(lineItemId))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
-            //}
-
             var itemsInCart = _lineItemsRepository.GetLineItem(cartId);
 
             return Request.CreateResponse(HttpStatusCode.OK, itemsInCart);
@@ -49,7 +43,7 @@ namespace BangazonOrientation.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [HttpPost, Route]
+        [HttpPut, Route]
         public HttpResponseMessage EditLineItem()
         {
 
@@ -63,16 +57,10 @@ namespace BangazonOrientation.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [HttpPut, Route]
-        public HttpResponseMessage AddLineItem()
+        [HttpPost, Route]
+        public HttpResponseMessage AddLineItem(LineItem lineItem)
         {
-
-            //if (string.IsNullOrWhiteSpace(customer.UserName))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
-            //}
-
-            //_lineItemsRepository.Save(customer);
+            _lineItemsRepository.AddLineItem(lineItem);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
