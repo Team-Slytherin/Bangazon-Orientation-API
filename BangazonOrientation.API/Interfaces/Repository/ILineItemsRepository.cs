@@ -15,6 +15,6 @@ namespace BangazonOrientation.API.Interfaces.Repository
 
         IEnumerable<LineItem> GetAllLineItems(int cartId);
 
-        void EditLineItem();
+        bool EditLineItem(LineItem lineItem);
     }
 }

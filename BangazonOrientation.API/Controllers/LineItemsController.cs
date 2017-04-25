@@ -44,17 +44,10 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpPut, Route]
-        public HttpResponseMessage EditLineItem()
+        public HttpResponseMessage EditLineItem(LineItem lineItem)
         {
-
-            //if (string.IsNullOrWhiteSpace(customer.UserName))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
-            //}
-
-            //_lineItemsRepository.Save(customer);
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+            var result = _lineItemsRepository.EditLineItem(lineItem);
+            return Request.CreateResponse(result ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
         }
 
         [HttpPost, Route]
