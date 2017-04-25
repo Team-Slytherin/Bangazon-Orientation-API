@@ -162,6 +162,8 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="DAL\CartRepository.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="DAL\CustomerRepository.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -173,6 +175,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICartRepository.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Interfaces\ICustomerRepository.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
