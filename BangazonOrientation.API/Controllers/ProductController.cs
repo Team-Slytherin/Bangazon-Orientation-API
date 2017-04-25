@@ -52,5 +52,9 @@ namespace BangazonOrientation.API.Controllers
         [HttpPut]
         //edit product details
         //pass in Product Object
+        public HttpResponseMessage EditOneProduct()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
