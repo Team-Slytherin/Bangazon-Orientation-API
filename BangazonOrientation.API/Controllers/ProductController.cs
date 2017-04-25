@@ -20,7 +20,7 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpGet] //get one product //pass in ProductID
-        [Route("/{productId}")]
+        [Route("{productId}")]
         public HttpResponseMessage GetOneProduct(int productId)
         {
             var product = _productRepository.GetOneProduct(productId);
