@@ -18,7 +18,9 @@
 namespace BangazonOrientation.API.DependencyResolution {
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-	
+    using System.Configuration;
+    using System.Data.SqlClient;
+
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
 
@@ -29,6 +31,7 @@ namespace BangazonOrientation.API.DependencyResolution {
                     scan.WithDefaultConventions();
                 });
             //For<IExample>().Use<Example>();
+            For<System.Data.IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["SlytherBangConnection"].ConnectionString));
         }
 
         #endregion
