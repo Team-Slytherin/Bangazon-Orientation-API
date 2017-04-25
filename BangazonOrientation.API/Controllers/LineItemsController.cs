@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace BangazonOrientation.API.Controllers
 {
-    [RoutePrefix("api/customer/{customerId}/cart/{cartId}")]
+    [RoutePrefix("api/customer/{customerid}/cart/{cartid}/lineitems")]
     public class LineItemsController : ApiController
     {
         readonly LineItemsRepository _lineItemsRepository;
@@ -19,7 +19,21 @@ namespace BangazonOrientation.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet,Route("{lineitemId}")]
+        public HttpResponseMessage GetLineItemById()
+        {
+
+            //if (string.IsNullOrWhiteSpace(customer.UserName))
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
+            //}
+
+            //_lineItemsRepository.Save(customer);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet, Route]
         public HttpResponseMessage GetAllLineItems()
         {
 
@@ -33,12 +47,32 @@ namespace BangazonOrientation.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        //[HttpGet]
-        //public HttpResponseMessage GetAll()
-        //{
-        //    var customers = _lineItemsRepository.GetAll();
+        [HttpPost, Route]
+        public HttpResponseMessage EditLineItem()
+        {
 
-        //    return Request.CreateResponse(HttpStatusCode.OK, customers);
-        //}
+            //if (string.IsNullOrWhiteSpace(customer.UserName))
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
+            //}
+
+            //_lineItemsRepository.Save(customer);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpPut, Route]
+        public HttpResponseMessage AddLineItem()
+        {
+
+            //if (string.IsNullOrWhiteSpace(customer.UserName))
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
+            //}
+
+            //_lineItemsRepository.Save(customer);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

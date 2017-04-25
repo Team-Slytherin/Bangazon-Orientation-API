@@ -164,6 +164,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LineItemsController.cs" />
     <Compile Include="DAL\Repository\LineItemsRepository.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="DAL\CustomerRepository.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="Interfaces\ILineItems.cs" />
     <Compile Include="Interfaces\Repository\ILineItemsRepository.cs" />
     <Compile Include="Models\LineItem.cs" />
+    <Compile Include="Interfaces\ICustomerRepository.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
