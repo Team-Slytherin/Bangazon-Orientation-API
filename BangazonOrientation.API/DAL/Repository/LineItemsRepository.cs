@@ -26,9 +26,11 @@ namespace BangazonOrientation.API.DAL.Repository
             return _dbConnection.Query<LineItem>(sql).ToList();
         }
 
-        public IEnumerable<LineItem> GetAllLineItems(int cartId)
+        public List<LineItem> GetAllLineItemsInCart(int cartId)
         {
-            throw new NotImplementedException();
+            var sql = $@"select CartDetailId as LineItemDetailId, CartId as LineItemId, Qty, ProductId from SlytherBang.dbo.CartDetail where CartId = {cartId}";
+
+            return _dbConnection.Query<LineItem>(sql).ToList();
         }
 
         public bool EditLineItem(LineItem lineItem)

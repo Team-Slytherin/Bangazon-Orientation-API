@@ -13,7 +13,7 @@ namespace BangazonOrientation.API.Interfaces.Repository
 
         List<LineItem> GetLineItem(int cartId);
 
-        IEnumerable<LineItem> GetAllLineItems(int cartId);
+        List<LineItem> GetAllLineItemsInCart(int cartId);
 
         bool EditLineItem(LineItem lineItem);
     }

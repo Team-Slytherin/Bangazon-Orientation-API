@@ -20,27 +20,23 @@ namespace BangazonOrientation.API.Controllers
             _lineItemsRepository = lineItemsRepository;
         }
 
-        ///api/customer/1/cart/1/lineitems/1
+        //api/customer/1/cart/1/lineitems/1
         [HttpGet,Route("{lineitemId}")]
-        public HttpResponseMessage GetLineItemById(int cartId)
+        public HttpResponseMessage GetLineItemById(int lineItemId)
         {
-            var itemsInCart = _lineItemsRepository.GetLineItem(cartId);
+            var lineItem = _lineItemsRepository.GetLineItem(lineItemId);
 
-            return Request.CreateResponse(HttpStatusCode.OK, itemsInCart);
+            return Request.CreateResponse(HttpStatusCode.OK, lineItem);
         }
 
+        //api/customer/1/cart/1/lineitems
         [HttpGet, Route]
-        public HttpResponseMessage GetAllLineItems()
+        public HttpResponseMessage GetAllLineItems(int cartId)
         {
 
-            //if (string.IsNullOrWhiteSpace(customer.UserName))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
-            //}
+            var result = _lineItemsRepository.GetAllLineItemsInCart(cartId);
 
-            //_lineItemsRepository.Save(customer);
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         [HttpPut, Route]
