@@ -175,7 +175,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\Helper.cs" />
     <Compile Include="Interfaces\Repository\ILineItemsRepository.cs" />
     <Compile Include="Models\LineItem.cs" />
     <Compile Include="Interfaces\ICustomerRepository.cs" />

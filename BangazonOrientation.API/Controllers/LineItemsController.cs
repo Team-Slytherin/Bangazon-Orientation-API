@@ -69,5 +69,10 @@ namespace BangazonOrientation.API.Controllers
                     $"Please enter numbers only for Qty, ProductId and LineItemId");
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        public bool ValidateLineItem(LineItem lineItem)
+        {
+            return lineItem.LineItemId != 0 && lineItem.ProductId != 0 && lineItem.Qty != 0;
+        }
     }
 }

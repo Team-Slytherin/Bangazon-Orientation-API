@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using BangazonOrientation.API.Interfaces;
 using BangazonOrientation.API.Interfaces.Repository;
 using BangazonOrientation.API.Models;
 using System.Data;
 using Dapper;
-using BangazonOrientation.API.Helper;
 
 namespace BangazonOrientation.API.DAL.Repository
 {
@@ -41,9 +37,7 @@ namespace BangazonOrientation.API.DAL.Repository
             // check that LineItemDetailId exist
             var result = GetLineItem(lineItem.LineItemDetailId);
             if (result.Equals(null))
-            {
                 return false;
-            }
             var sql = $@"Update SlytherBang.dbo.CartDetail Set Qty = {lineItem.Qty}, CartId = {lineItem.LineItemId}, ProductId = {lineItem.ProductId} Where CartDetailId = {lineItem.LineItemDetailId}";
 
             _dbConnection.Execute(sql, lineItem);
@@ -52,13 +46,17 @@ namespace BangazonOrientation.API.DAL.Repository
 
         public bool AddLineItem(LineItem lineItem)
         {
-            if (lineItem.LineItemId == 0 || lineItem.ProductId == 0 || lineItem.Qty == 0)
-                return false;
-
-            var sql = $@"INSERT into SlytherBang.dbo.CartDetail(CartId, Qty, ProductId) Values({lineItem.LineItemId}, {lineItem.Qty}, {lineItem.ProductId})";
-
+            if (!ValidateLineItem(lineItem)) return false;
+            var sql =
+                $@"INSERT into SlytherBang.dbo.CartDetail(CartId, Qty, ProductId) Values({lineItem.LineItemId}, {
+                        lineItem.Qty }, {lineItem.ProductId})";
             _dbConnection.Execute(sql, lineItem);
             return true;
+        }
+
+        public bool ValidateLineItem(LineItem lineItem)
+        {
+            return lineItem.LineItemId != 0 || lineItem.ProductId != 0 || lineItem.Qty != 0;
         }
     }
 }
