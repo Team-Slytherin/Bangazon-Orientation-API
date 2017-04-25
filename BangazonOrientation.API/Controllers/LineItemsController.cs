@@ -24,9 +24,13 @@ namespace BangazonOrientation.API.Controllers
         [HttpGet,Route("{lineitemId}")]
         public HttpResponseMessage GetLineItemById(int lineItemId)
         {
-            var lineItem = _lineItemsRepository.GetLineItem(lineItemId);
+            var result = _lineItemsRepository.GetLineItem(lineItemId);
 
-            return Request.CreateResponse(HttpStatusCode.OK, lineItem);
+            if (result.Equals(null))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    $"Sorry LineItemId {lineItemId} does not exist.");
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         //api/customer/1/cart/1/lineitems
@@ -36,6 +40,10 @@ namespace BangazonOrientation.API.Controllers
 
             var result = _lineItemsRepository.GetAllLineItemsInCart(cartId);
 
+            if (result.Count == 0)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    $"Sorry There are no Carts with id of {cartId}");
+
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
@@ -43,14 +51,22 @@ namespace BangazonOrientation.API.Controllers
         public HttpResponseMessage EditLineItem(LineItem lineItem)
         {
             var result = _lineItemsRepository.EditLineItem(lineItem);
-            return Request.CreateResponse(result ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+
+            if (!result)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    $"Sorry LineItem {lineItem.LineItemDetailId} does not exist.");
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost, Route]
         public HttpResponseMessage AddLineItem(LineItem lineItem)
         {
-            _lineItemsRepository.AddLineItem(lineItem);
+            bool result = _lineItemsRepository.AddLineItem(lineItem);
 
+            if (!result)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    $"Please enter numbers only for Qty, ProductId and LineItemId");
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

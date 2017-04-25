@@ -9,9 +9,9 @@ namespace BangazonOrientation.API.Interfaces.Repository
 {
     public interface ILineItemsRepository
     {
-        void AddLineItem(LineItem lineItem);
+        bool AddLineItem(LineItem lineItem);
 
-        List<LineItem> GetLineItem(int cartId);
+        LineItem GetLineItem(int cartId);
 
         List<LineItem> GetAllLineItemsInCart(int cartId);
 

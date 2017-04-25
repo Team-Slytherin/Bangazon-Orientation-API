@@ -11,7 +11,7 @@ using Moq;
 namespace BangazonOrientation.API.Tests.LineItemsControllerTest
 {
     [TestClass]
-    public class GetAllLineItems
+    public class GetAllLineItemsTest
     {
         LineItemsController _controller;
         Mock<ILineItemsRepository> _mockedLineItemRepository;

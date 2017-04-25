@@ -7,6 +7,7 @@ using BangazonOrientation.API.Interfaces.Repository;
 using BangazonOrientation.API.Models;
 using System.Data;
 using Dapper;
+using BangazonOrientation.API.Helper;
 
 namespace BangazonOrientation.API.DAL.Repository
 {
@@ -19,11 +20,13 @@ namespace BangazonOrientation.API.DAL.Repository
             _dbConnection = connection;
         }
 
-        public List<LineItem> GetLineItem(int lineItemId)
+        public LineItem GetLineItem(int lineItemId)
         {   
             var sql = $@"select CartDetailId as LineItemDetailId, CartId as LineItemId, Qty, ProductId from SlytherBang.dbo.CartDetail where CartDetailId = {lineItemId}";
 
-            return _dbConnection.Query<LineItem>(sql).ToList();
+            var result =  _dbConnection.Query<LineItem>(sql).ToList();
+
+            return result.FirstOrDefault();
         }
 
         public List<LineItem> GetAllLineItemsInCart(int cartId)
@@ -37,7 +40,7 @@ namespace BangazonOrientation.API.DAL.Repository
         {
             // check that LineItemDetailId exist
             var result = GetLineItem(lineItem.LineItemDetailId);
-            if (result.Count == 0)
+            if (result.Equals(null))
             {
                 return false;
             }
@@ -47,12 +50,15 @@ namespace BangazonOrientation.API.DAL.Repository
             return true;
         }
 
-        public void AddLineItem(LineItem lineItem)
+        public bool AddLineItem(LineItem lineItem)
         {
-                                                                                                              
+            if (lineItem.LineItemId == 0 || lineItem.ProductId == 0 || lineItem.Qty == 0)
+                return false;
+
             var sql = $@"INSERT into SlytherBang.dbo.CartDetail(CartId, Qty, ProductId) Values({lineItem.LineItemId}, {lineItem.Qty}, {lineItem.ProductId})";
 
             _dbConnection.Execute(sql, lineItem);
+            return true;
         }
     }
 }

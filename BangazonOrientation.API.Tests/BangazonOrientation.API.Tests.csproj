@@ -75,7 +75,7 @@
     <Compile Include="AddCustomerTests.cs" />
     <Compile Include="LineItemsControllerTest\AddLineItemsTest.cs" />
     <Compile Include="LineItemsControllerTest\EditLineItemTest.cs" />
-    <Compile Include="LineItemsControllerTest\GetAllLineItems.cs" />
+    <Compile Include="LineItemsControllerTest\GetAllLineItemsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GetCustomerTests.cs" />
     <Compile Include="EditCustomer.cs" />

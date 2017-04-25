@@ -34,10 +34,10 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
             //arrange 
             var newLineItem = new LineItem
             {
-                LineItemDetailId = 26,
-                LineItemId = 21,
-                ProductId = 2,
-                Qty = 12345
+                LineItemDetailId = 31,
+                LineItemId = 32,
+                ProductId = 22,
+                Qty = 123452
             };
 
             //act
@@ -45,6 +45,28 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
 
             //assert
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+            //lineitem saved to repo
+            _mockedLineItemRepository.Verify(x => x.AddLineItem(newLineItem), Times.Once);
+        }
+
+        // not working correctly....
+        [TestMethod]
+        public void AddLineItemsWithInvalidLineItemId()
+        {
+            //arrange 
+            var newLineItem = new LineItem
+            {
+                LineItemDetailId = 26,
+                LineItemId = 21,
+                ProductId = 0,
+                Qty = 12345
+            };
+
+            //act
+            var result = _controller.AddLineItem(newLineItem);
+
+            //assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
             //lineitem saved to repo
             _mockedLineItemRepository.Verify(x => x.AddLineItem(newLineItem), Times.Once);
         }
