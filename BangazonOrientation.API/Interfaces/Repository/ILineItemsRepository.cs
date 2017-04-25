@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BangazonOrientation.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace BangazonOrientation.API.Interfaces.Repository
 {
-    interface ILineItemsRepository
+    public interface ILineItemsRepository
     {
-        //void Save(Customer newCustomer);
-        //IEnumerable<Customer> GetAll();
+        void AddLineItem(int customerId, int cartId);
+
+        List<LineItem> GetLineItem(int cartId);
+
+        IEnumerable<LineItem> GetAllLineItems(int cartId);
+
+        void EditLineItem();
     }
 }

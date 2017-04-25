@@ -14,5 +14,6 @@ namespace BangazonOrientation.API.Models
         public int ProductId { get; set; }
 
         public int Qty { get; set; }
+
     }
 }
