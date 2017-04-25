@@ -27,7 +27,7 @@ namespace BangazonOrientation.API.DAL
         public void AddCart(int customerId)
         {
             var sql = @"insert into Cart(CustomerId, Active) values(@customerId, '1')";
-            _bangzonConnection.Execute(sql, customerId);
+            _bangzonConnection.Execute(sql, new { customerId });
         }
 
         public Cart GetActiveCart(int customerId)
@@ -35,7 +35,7 @@ namespace BangazonOrientation.API.DAL
             var sql = @"SELECT CartId, CustomerId, PaymentId, Active 
                         FROM Cart 
                         WHERE CustomerId = @customerId AND Active = '1'";
-            return (Cart)_bangzonConnection.Query(sql, customerId);
+            return _bangzonConnection.Query(sql, new { customerId }) as Cart;
         }
 
         public void EditCartStatus(int cartId, int paymentId)
@@ -48,7 +48,7 @@ namespace BangazonOrientation.API.DAL
 
         public void EmptyCart(int customerId)
         {
-            var sql=
+            var sql =
             @" DELETE cdt
                 FROM SlytherBang.dbo.Customer cust
                 JOIN SlytherBang.dbo.Cart cart
@@ -57,7 +57,7 @@ namespace BangazonOrientation.API.DAL
                     ON cart.CartId = cdt.CartId
                 WHERE Active = '1'
                     AND cust.CustomerId = @customerId";
-            _bangzonConnection.Execute(sql, customerId);
+            _bangzonConnection.Execute(sql, new { customerId });
         }
     }
 }

@@ -43,7 +43,16 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/cart/empty/{customerId}")]
+        [Route("api/cart/editcart/{cartId}/{paymentId}")]
+        public HttpResponseMessage EditOrderStatus(int cartId, int paymentId)
+        {
+            _cartRepository.EditCartStatus(cartId, paymentId);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpDelete]
+        [Route("api/cart/emptycart/{customerId}")]
         public HttpResponseMessage EmptyCart(int customerId)
         {
             _cartRepository.EmptyCart(customerId);
