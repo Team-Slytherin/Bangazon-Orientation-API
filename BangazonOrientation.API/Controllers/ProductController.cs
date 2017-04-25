@@ -1,4 +1,5 @@
 ﻿using BangazonOrientation.API.Interfaces;
+using BangazonOrientation.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,35 @@ namespace BangazonOrientation.API.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet]
-        //get one product
-        //pass in ProductID
+        [HttpGet] //get one product //pass in ProductID
+        [Route("productId")]
+        public HttpResponseMessage GetOneProduct(int productId)
+        {
+            throw new NotImplementedException();
+        }
 
-        [HttpGet]
-        //get all products
-        //
+        [HttpGet] //get all products
+        [Route("all")]
+        public HttpResponseMessage GetAllProducts()
+        {
+            throw new NotImplementedException();
+        }
 
         [HttpPost]
+        [Route("new/success")]
         //add new product
-        //pass in Product Object 
+        ////pass in Product Object 
+        public HttpResponseMessage AddNewProduct(Product product)
+        {
+            if (string.IsNullOrWhiteSpace(product.ProductName))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid entry.");
+            }
+            _productRepository.AddProduct(product);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
 
         [HttpPut]
         //edit product details
