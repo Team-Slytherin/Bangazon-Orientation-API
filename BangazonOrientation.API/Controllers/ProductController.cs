@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace BangazonOrientation.API.Controllers
 {
-    [RoutePrefix("api/product")]
+    [RoutePrefix("api/products")]
     public class ProductController : ApiController
     {
         readonly IProductRepository _productRepository;
@@ -20,26 +20,24 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpGet] //get one product //pass in ProductID
-        [Route("productId")]
+        [Route("/{productId}")]
         public HttpResponseMessage GetOneProduct(int productId)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.GetOneProduct(productId);
+            return Request.CreateResponse(HttpStatusCode.OK, product);
         }
 
         [HttpGet] //get all products
-        [Route("all")]
         public HttpResponseMessage GetAllProducts()
         {
-            throw new NotImplementedException();
+            var products = _productRepository.GetAllProducts();
+            return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
-        [HttpPost]
-        [Route("new/success")]
-        //add new product
-        ////pass in Product Object 
+        [HttpPost]//add new product ////pass in Product Object
         public HttpResponseMessage AddNewProduct(Product product)
         {
-            if (string.IsNullOrWhiteSpace(product.ProductName))
+            if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid entry.");
             }
@@ -49,12 +47,17 @@ namespace BangazonOrientation.API.Controllers
         }
 
 
-        [HttpPut]
-        //edit product details
-        //pass in Product Object
-        public HttpResponseMessage EditOneProduct()
+        [HttpPut]//edit product details //pass in Product Object
+        public HttpResponseMessage EditOneProduct(Product product)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Content. Please select a valid product to update.");
+            }
+
+            _productRepository.UpdateProduct(product);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
