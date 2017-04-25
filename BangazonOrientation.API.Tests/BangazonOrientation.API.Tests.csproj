@@ -37,7 +37,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Moq, Version=4.7.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.8\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -70,7 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartControllerTests.cs" />
+    <Compile Include="AddCustomerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GetCustomerTests.cs" />
+    <Compile Include="EditCustomer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BangazonOrientation.API\BangazonOrientation.API.csproj">
