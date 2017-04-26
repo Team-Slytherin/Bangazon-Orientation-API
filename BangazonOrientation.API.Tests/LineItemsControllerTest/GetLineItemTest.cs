@@ -8,6 +8,7 @@ using BangazonOrientation.API.DAL.Repository;
 using BangazonOrientation.API.Interfaces;
 using BangazonOrientation.API.Interfaces.Repository;
 using System.Net;
+using BangazonOrientation.API.Models;
 
 namespace BangazonOrientation.API.Tests.LineItemsControllerTest
 {
@@ -33,10 +34,17 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
         public void GetLineItemById()
         {
             //arrange
-            int lineItemDetailsId = 1;
+            var newLineItem = new LineItem
+            {
+                LineItemDetailId = 1,
+                LineItemId = 1,
+                ProductId = 1,
+                Qty = 1
+            };
+            _mockedLineItemRepository.Setup(x => x.GetLineItem(It.IsAny<int>())).Returns(newLineItem);
 
             //act
-            var result = _controller.GetLineItemById(lineItemDetailsId);
+            var result = _controller.GetLineItemById(2);
 
             //assert
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);

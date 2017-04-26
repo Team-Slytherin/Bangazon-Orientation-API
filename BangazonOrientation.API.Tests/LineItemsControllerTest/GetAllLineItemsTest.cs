@@ -7,6 +7,7 @@ using BangazonOrientation.API.Interfaces.Repository;
 using BangazonOrientation.API.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 
 namespace BangazonOrientation.API.Tests.LineItemsControllerTest
 {
@@ -38,6 +39,16 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
                 ProductId = 2,
                 Qty = 12345
             };
+
+            var newLineItem1 = new LineItem
+            {
+                LineItemDetailId = 26,
+                LineItemId = 21,
+                ProductId = 2,
+                Qty = 12345
+            };
+            _mockedLineItemRepository.Setup(x => x.AddLineItem(It.IsAny<LineItem>())).Returns(true);
+            //_mockedLineItemRepository.Setup(x => x.GetAllLineItemsInCart(It.IsAny<int>())).Returns(new List<LineItem>);
 
             //act
             var expectedResult = _controller.AddLineItem(newLineItem);

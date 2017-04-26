@@ -62,7 +62,7 @@ namespace BangazonOrientation.API.Controllers
         [HttpPost, Route]
         public HttpResponseMessage AddLineItem(LineItem lineItem)
         {
-            bool result = _lineItemsRepository.AddLineItem(lineItem);
+            var result = _lineItemsRepository.AddLineItem(lineItem);
 
             if (!result)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,

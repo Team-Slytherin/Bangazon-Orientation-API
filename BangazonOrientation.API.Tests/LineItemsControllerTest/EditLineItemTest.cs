@@ -38,6 +38,7 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
                 ProductId = 2,
                 Qty = 123456
             };
+            _mockedLineItemRepository.Setup(x => x.EditLineItem(It.IsAny<LineItem>())).Returns(true);
 
             //act
             var result = _controller.EditLineItem(edittedLineItem);
