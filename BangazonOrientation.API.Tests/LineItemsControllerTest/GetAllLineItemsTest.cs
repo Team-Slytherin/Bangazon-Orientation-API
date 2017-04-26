@@ -32,23 +32,11 @@ namespace BangazonOrientation.API.Tests.LineItemsControllerTest
         public void GetAllLineItemsFromDb()
         {
             //arrange 
-            var newLineItem = new LineItem
-            {
-                LineItemDetailId = 26,
-                LineItemId = 21,
-                ProductId = 2,
-                Qty = 12345
-            };
+            var newLineItem = new LineItem { LineItemDetailId = 26, LineItemId = 21, ProductId = 2, Qty = 12345 };
+            var newLineItem1 = new LineItem { LineItemDetailId = 26, LineItemId = 21, ProductId = 2, Qty = 12345 };
 
-            var newLineItem1 = new LineItem
-            {
-                LineItemDetailId = 26,
-                LineItemId = 21,
-                ProductId = 2,
-                Qty = 12345
-            };
             _mockedLineItemRepository.Setup(x => x.AddLineItem(It.IsAny<LineItem>())).Returns(true);
-            //_mockedLineItemRepository.Setup(x => x.GetAllLineItemsInCart(It.IsAny<int>())).Returns(new List<LineItem>);
+            _mockedLineItemRepository.Setup(x => x.GetAllLineItemsInCart(It.IsAny<int>())).Returns(new List<LineItem> { newLineItem, newLineItem1 });
 
             //act
             var expectedResult = _controller.AddLineItem(newLineItem);
