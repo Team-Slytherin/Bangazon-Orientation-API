@@ -1,4 +1,5 @@
 ﻿using BangazonOrientation.API.Interfaces;
+using BangazonOrientation.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Http;
 
 namespace BangazonOrientation.API.Controllers
 {
+    [RoutePrefix("api/customer/{customerId}/cart")]
     public class CartController : ApiController
     {
         readonly ICartRepository _cartRepository;
@@ -17,7 +19,7 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/cart/{customerId}")]
+        [Route]
         public HttpResponseMessage RegisterCart(int customerId)
         {
             _cartRepository.AddCart(customerId);
@@ -25,7 +27,7 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/cart/{customerId}")]
+        [Route]
         public HttpResponseMessage GetActiveOne(int customerId)
         {
             var cart = _cartRepository.GetActiveCart(customerId);
@@ -34,25 +36,16 @@ namespace BangazonOrientation.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/cart/payment/{paymentId}")]
-        public HttpResponseMessage EditPaymentInfo(int cartId, int paymentId)
+        [Route]
+        public HttpResponseMessage EditPaymentInfo(Cart cart)
         {
-             _cartRepository.EditCartStatus(cartId, paymentId);
-
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [HttpPut]
-        [Route("api/cart/editcart/{cartId}/{paymentId}")]
-        public HttpResponseMessage EditOrderStatus(int cartId, int paymentId)
-        {
-            _cartRepository.EditCartStatus(cartId, paymentId);
+             _cartRepository.EditCartStatus(cart);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]
-        [Route("api/cart/emptycart/{customerId}")]
+        [Route]
         public HttpResponseMessage EmptyCart(int customerId)
         {
             _cartRepository.EmptyCart(customerId);
