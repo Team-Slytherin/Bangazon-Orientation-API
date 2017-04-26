@@ -35,9 +35,19 @@ namespace BangazonOrientation.API.DAL
             _dbConnection.Execute(sql, newCustomer);
         }
 
-        public void EditCustomer(Customer editingCustomer)
+        public int EditCustomer(Customer editingCustomer)
         {
-            throw new NotImplementedException();
+            var sql = $@"UPDATE SlytherBang.dbo.Customer
+                         SET CustomerName = @CustomerName,
+                             CustomerStreetAddress = @CustomerStreetAddress,
+                             CustomerCity = @CustomerCity,
+                             CustomerState = @CustomerState,
+                             CustomerZip = @CustomerZip,
+                             CustomerPhone = @CustomerPhone
+                        WHERE CustomerId = @CustomerId;";
+            var count = _dbConnection.Execute(sql, editingCustomer);
+
+            return count;
         }
 
         public Customer GetSingleCustomer(int customerId)

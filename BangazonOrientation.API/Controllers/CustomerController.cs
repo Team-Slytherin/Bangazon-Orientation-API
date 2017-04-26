@@ -18,11 +18,11 @@ namespace BangazonOrientation.API.Controllers
             _customerRepository = customerRepository;
         }
         [HttpPost]
-        public HttpResponseMessage RegisterCustomer(Customer customer)
+        public HttpResponseMessage RegisterCustomer([FromBody]Customer customer)
         {
-            if (string.IsNullOrWhiteSpace(customer.CustomerName))
+            if(!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request: Invalid Customer Name");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request: Ensure All Fields Are Populated");
             }
 
             _customerRepository.AddNewCustomer(customer);
@@ -36,26 +36,37 @@ namespace BangazonOrientation.API.Controllers
         {
             var customer = _customerRepository.GetSingleCustomer(customerId);
 
+            if (customer == null)
+            {
+               return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Content: Customer Does Not Exist.");
+            }
+
             return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
 
         [HttpGet]
         public HttpResponseMessage RetrieveAllCustomers()
         {
-            var customers = _customerRepository.GetAllCustomers();
+            var customers = _customerRepository.GetAllCustomers() as List<Customer>;
+
+            if (customers == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Content: No Customers Available.");
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
 
         [HttpPut]
-        public HttpResponseMessage EditCustomer(Customer customer)
+        //[Route("{customerId}")]
+        public HttpResponseMessage EditCustomer([FromBody]Customer editingCustomer)
         {
-            if (customer == null)
+            if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Content: Select a Valid Customer to Edit.");
             }
 
-            _customerRepository.EditCustomer(customer);
+            _customerRepository.EditCustomer(editingCustomer);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
