@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BangazonOrientation.API.Models;
 using System.Net;
+using System.Collections.Generic;
 
 namespace BangazonOrientation.API.Tests
 {
@@ -71,28 +72,45 @@ namespace BangazonOrientation.API.Tests
         }
 
         [TestMethod]
-        public void EnsureCanGetOneProductById()
+        public void EnsureCanGetOneProductById(Product product1)
         {
+            _mockedProductRepository.Setup(x => x.GetOneProduct(product1.ProductId))
+                    .Returns(() => new Product { ProductId = 0001, ProductName = "Tennis Balls", ProductPrice = 9.99m }
+                    );
+            var result = _productController.GetOneProduct(product1.ProductId);
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         [TestMethod]
         public void EnsureCanGetAllProducts()
         {
+            //arrange
+            _mockedProductRepository.Setup(x => x.GetAllProducts())
+                .Returns(() =>
+                    new List<Product>
+                    {
+                        product1, product2, product3, product4
+                    });
+
+            //act
+            var result = _productController.GetAllProducts();
+
+            //assert
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         [TestMethod]
-        public void EnsureCanEditSingleProductName()
+        public void EnsureCanEditSingleProduct()
         {
-        }
-
-        [TestMethod]
-        public void EnsureCanEditSingleProductPrice()
-        {
-        }
-
-        [TestMethod]
-        public void EnsureCanEditSingleProductObject()
-        {
+            var updatedProduct4 =
+                new Product
+                {
+                    ProductId = 0004,
+                    ProductName = "Beagle",
+                    ProductPrice = 250.00m
+                };
+            var result = _productController.EditOneProduct(updatedProduct4);
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
     }
 }
