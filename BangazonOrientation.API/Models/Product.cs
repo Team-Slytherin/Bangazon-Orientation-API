@@ -11,7 +11,7 @@ namespace BangazonOrientation.API.Models
         public int ProductId { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [MaxLength(20)]
         public string ProductName { get; set; }
 
         [Required]
