@@ -60,14 +60,17 @@ namespace BangazonOrientation.API.Tests
         public void ICanUpdatePaymentInfo()
         {
             //arrange
-            var cartId = 5;
-            var paymentId = 3;
+            var cart = new Cart
+            {
+                CartId = 5,
+                PaymentId = 3
+            };
             //act
-            var result = _controller.EditPaymentInfo(cartId, paymentId);
+            var result = _controller.EditPaymentInfo(cart);
             //assert
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
             //cart gets saved to a repository
-            _mockedCartRepository.Verify(x => x.EditCartStatus(cartId, paymentId));
+            _mockedCartRepository.Verify(x => x.EditCartStatus(cart));
         }
 
         [TestMethod]
