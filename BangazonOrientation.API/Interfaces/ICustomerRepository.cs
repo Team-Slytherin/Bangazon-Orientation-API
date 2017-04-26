@@ -10,7 +10,7 @@ namespace BangazonOrientation.API.Interfaces
     public interface ICustomerRepository
     {
         void AddNewCustomer(Customer newCustomer);
-        void EditCustomer(Customer editingCustomer);
+        int EditCustomer(Customer editingCustomer);
         Customer GetSingleCustomer(int customerId);
         IEnumerable<Customer> GetAllCustomers();
     }

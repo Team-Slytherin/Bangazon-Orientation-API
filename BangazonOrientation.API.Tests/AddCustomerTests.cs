@@ -58,6 +58,7 @@ namespace BangazonOrientation.API.Tests
             };
 
             //act
+            _controller.ModelState.AddModelError("problems", new Exception());
             var result = _controller.RegisterCustomer(newCustomer);
 
             //assert
