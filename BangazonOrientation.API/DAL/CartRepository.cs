@@ -26,8 +26,8 @@ namespace BangazonOrientation.API.DAL
 
         public void AddCart(int customerId)
         {
-            var sql = @"insert into Cart(CustomerId, Active) values(@customerId, '1')";
-            _bangzonConnection.Execute(sql, new { customerId });
+            var sql = $@"insert into Cart(CustomerId, Active) values({customerId}, '1')";
+            _bangzonConnection.Execute(sql);
         }
 
         public Cart GetActiveCart(int customerId)
@@ -38,12 +38,12 @@ namespace BangazonOrientation.API.DAL
             return _bangzonConnection.Query<Cart>(sql).ToList().FirstOrDefault();
         }
 
-        public void EditCartStatus(Cart cart)
+        public void EditCartStatus(int customerId, Cart cart)
         {
             var sql = $@"UPDATE Cart
                         SET PaymentId = {cart.PaymentId}, Active = '0'
-                        WHERE CartId ={cart.CartId}";
-            _bangzonConnection.Execute(sql, cart);
+                        WHERE CustomerId = {customerId} AND CartId ={cart.CartId}";
+            _bangzonConnection.Execute(sql);
         }
 
         public void EmptyCart(int customerId)
@@ -57,7 +57,7 @@ namespace BangazonOrientation.API.DAL
                     ON cart.CartId = cdt.CartId
                 WHERE Active = '1'
                     AND cust.CustomerId = {customerId}";
-            _bangzonConnection.Execute(sql, new { customerId });
+            _bangzonConnection.Execute(sql);
         }
     }
 }
