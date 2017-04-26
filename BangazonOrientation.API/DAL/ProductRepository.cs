@@ -19,13 +19,13 @@ namespace BangazonOrientation.API.DAL
         }
         public void AddProduct(Product newProduct)
         {
-            var sql = @"INSERT into SlytherBang.dbo.Product
+            var sql = $@"INSERT into SlytherBang.dbo.Product
                         (ProductName,
                          ProductPrice)
                         VALUES
-                        (@ProductName,
-                         @ProductPrice);";
-            _dbConnection.Execute(sql, newProduct);
+                        ({newProduct.ProductName},
+                         {newProduct.ProductPrice});";
+            _dbConnection.Execute(sql);
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -45,11 +45,11 @@ namespace BangazonOrientation.API.DAL
 
         public void UpdateProduct(Product productToUpdate)
         {
-            var sql = @"UPDATE Product
-                        SET ProductName to @ProductName
-                            ProductPrice to @ProductPrice
-                        WHERE ProductId = @ProductId";
-            _dbConnection.Execute(sql, new { productToUpdate });
+            var sql = $@"UPDATE Product
+                        SET ProductName = '{productToUpdate.ProductName}',
+                            ProductPrice = '{productToUpdate.ProductPrice}'
+                        WHERE ProductId = {productToUpdate.ProductId}";
+            _dbConnection.Execute(sql);
         }
     }
 }

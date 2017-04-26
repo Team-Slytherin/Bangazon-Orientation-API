@@ -26,7 +26,7 @@ namespace BangazonOrientation.API.Controllers
         {
             var result = _lineItemsRepository.GetLineItem(lineItemId);
 
-            if (result.Equals(null))
+            if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     $"Sorry LineItemId {lineItemId} does not exist.");
 
@@ -37,10 +37,10 @@ namespace BangazonOrientation.API.Controllers
         [HttpGet, Route]
         public HttpResponseMessage GetAllLineItems(int cartId)
         {
-
+            // Check for cart is not null
             var result = _lineItemsRepository.GetAllLineItemsInCart(cartId);
 
-            if (result.Count == 0)
+            if (result.Count == 0 || result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     $"Sorry There are no Carts with id of {cartId}");
 

@@ -27,15 +27,15 @@ namespace BangazonOrientation.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, product);
         }
 
-        [HttpGet] //get all products
+        [HttpGet, Route] //get all products
         public HttpResponseMessage GetAllProducts()
         {
             var products = _productRepository.GetAllProducts();
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
-        [HttpPost]//add new product ////pass in Product Object
-        public HttpResponseMessage AddNewProduct(Product product)
+        [HttpPost, Route]//add new product ////pass in Product Object
+        public HttpResponseMessage AddNewProduct([FromBody]Product product)
         {
             if (!ModelState.IsValid)
             {
@@ -47,7 +47,7 @@ namespace BangazonOrientation.API.Controllers
         }
 
 
-        [HttpPut]//edit product details //pass in Product Object
+        [HttpPut, Route]//edit product details //pass in Product Object
         public HttpResponseMessage EditOneProduct(Product product)
         {
             if (!ModelState.IsValid)
