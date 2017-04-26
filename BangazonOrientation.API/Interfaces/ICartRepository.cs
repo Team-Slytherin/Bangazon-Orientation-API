@@ -11,7 +11,7 @@ namespace BangazonOrientation.API.Interfaces
     {
         void AddCart(int customerId);
         Cart GetActiveCart(int customerId);
-        void EditCartStatus(Cart cart);
+        void EditCartStatus(int customerId, Cart cart);
         void EmptyCart(int customerId);
     }
 }
