@@ -45,7 +45,11 @@ namespace BangazonOrientation.API.DAL
 
         public void UpdateProduct(Product productToUpdate)
         {
-            throw new NotImplementedException();
+            var sql = @"UPDATE Product
+                        SET ProductName to @ProductName
+                            ProductPrice to @ProductPrice
+                        WHERE ProductId = @ProductId";
+            _dbConnection.Execute(sql, new { productToUpdate });
         }
     }
 }
