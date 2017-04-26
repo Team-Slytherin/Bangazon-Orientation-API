@@ -65,6 +65,7 @@ namespace BangazonOrientation.API.Tests
         [TestMethod]
         public void EnsureAddProductReturns400WhenProductEmpty()
         {
+            _productController.ModelState.AddModelError("problems", new Exception());
             var result = _productController.AddNewProduct(badProduct);
             Assert.IsTrue(result.StatusCode == HttpStatusCode.BadRequest);
         }
