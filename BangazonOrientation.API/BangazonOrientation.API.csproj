@@ -162,6 +162,8 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="DAL\ProductRepository.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="DAL\CartRepository.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -175,6 +177,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IProductRepository.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Interfaces\ICartRepository.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Interfaces\ICustomerRepository.cs" />
@@ -196,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
